@@ -11,11 +11,11 @@ First of all you should build and install lua bindings for libgd — [lua-gd](ht
 
 Then clone repsository lua-captcha:
 
-{{{git clone https://github.com/mrDoctorWho/lua-captcha}}}
+```git clone https://github.com/mrDoctorWho/lua-captcha```
 
 install it:
 
-{{{make install}}
+```make install```
 
 After that you would configure prosody. This module requires from you 4 fields, you should add this into your VirtualHost entry.
 
