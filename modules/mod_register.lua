@@ -20,8 +20,9 @@ local jid_bare = require "util.jid".bare;
 local timer = require "util.timer";
 
 
-require "math"
-require "captcha";
+local math = require "math";
+local captcha = require "captcha";
+
 
 
 local base64 = require "util.encodings".base64.encode;
@@ -29,7 +30,8 @@ local sha1 = require "util.hashes".sha1;
 
 
 local captcha_ids = {};
-local config = module:get_option("captcha_config");
+
+local config = module:get_option("captcha_config") or {};
 
 
 local compat = module:get_option_boolean("registration_compat", true);
