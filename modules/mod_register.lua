@@ -21,7 +21,7 @@ local timer = require "util.timer";
 
 
 require "math"
-require "util.captcha";
+require "captcha";
 
 
 local base64 = require "util.encodings".base64.encode;
