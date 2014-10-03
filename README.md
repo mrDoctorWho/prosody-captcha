@@ -24,7 +24,8 @@ captcha_config = {
 		dir = "/tmp"; -- Directory used to storage captcha images. Please make sure prosody user allowed to write there.
 		timeout = 60; -- Timeout when captcha will expire
 		web_path = "challenge"; -- Web path used to separate main prosody site from itself modules.
-		font = "/usr/lib/prosody/FiraSans-Regular.ttf" -- Font used for captcha text
+		font = "/usr/lib/prosody/FiraSans-Regular.ttf"; -- Font used for the captcha text
+		quality = 60; -- The captcha quality percentage
 	}
 ```
 

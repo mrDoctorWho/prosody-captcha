@@ -83,7 +83,7 @@ local registration_form = dataform_new{
 
 
 function delete_captcha(cid)
-	os.remove(string.format("%s/%s.png", config.dir, cid))
+	os.remove(string.format("%s/%s.jpg", config.dir, cid))
 	captcha_ids[cid] = nil;
 end
 
@@ -226,7 +226,7 @@ local function get_captcha()
 	local cid = tostring(math.random(1000, 90000)); -- random cid used for cap name
 	cap:font(config.font);
 	cap:scribble();
-	captcha_ids[cid] = cap:write(string.format("%s/%s.png", config.dir, cid)):lower();
+	captcha_ids[cid] = cap:write(string.format("%s/%s.jpg", config.dir, cid), config.quality):lower();
 	timer.add_task(config.timeout, function() delete_captcha(cid) end); -- Add new function to use arguments. Is there any other way in lua? Or it even works?
 	return cid
 end
@@ -244,13 +244,13 @@ module:hook("stanza/iq/jabber:iq:register:query", function(event)
 			local reply = st.reply(stanza):query("jabber:iq:register");
 			-- TODO: Move this in standalone function
 			local challenge = get_captcha()
-			local captcha_data = get_file(config.dir.."/"..challenge..".png")
+			local captcha_data = get_file(config.dir.."/"..challenge..".jpg")
 			local captcha_sha = sha1(captcha_data, true) -- omg
 			local captcha_base64 = base64(captcha_data) -- lol wut
 			xml = registration_form:form(({FORM_TYPE = "urn:xmpp:captcha",
 				from = session.host,
 				ocr = {{ 
-					type = "image/png",
+					type = "image/jpeg",
 					uri = string.format("cid:sha1+%s@bob.xmpp.org", captcha_sha) 
 				}};
 				url = string.format("http://%s:5280/%s/%s", session.host, config.web_path, challenge);
@@ -262,7 +262,7 @@ module:hook("stanza/iq/jabber:iq:register:query", function(event)
 			data = st.stanza("data", 
 				{xmlns = "urn:xmpp:bob", 
 				cid = string.format("sha1+%s@bob.xmpp.org", captcha_sha), 
-				type = "image/png", 
+				type = "image/jpeg", 
 				["max-age"] = config.timeout})
 			:text(captcha_base64);
 			
@@ -372,9 +372,9 @@ function handle_http_request(event)
 	request.response = {
 		status_code = 200;
 		headers = {	
-			content_type = "image/png" 
+			content_type = "image/jpeg" 
 		};
-		body = get_file(string.format("%s/%s.png", config.dir, cid));
+		body = get_file(string.format("%s/%s.jpeg", config.dir, cid));
 	};
 	return request.response;
 
