@@ -3,7 +3,7 @@ prosody-captcha
 
 **Introduction**
 
-Prosody-captcha is a little modification of prosody's "mod_register.lua" module that provides captcha protection for registration form.
+Prosody-captcha is a little modification for standard prosody's module "mod_register.lua" that provides captcha protection for registration form.
 
 **Installation**
 
@@ -17,7 +17,7 @@ install it:
 
 ```make install```
 
-After that you would configure prosody. This module requires from you 4 fields, you should add this into your VirtualHost entry.
+After that you have to configure prosody. This module requires from you 5 fields, you must add this into your VirtualHost entry.
 
 ```lua
 captcha_config = {
@@ -29,6 +29,6 @@ captcha_config = {
 	}
 ```
 
-You can run script "install.lua" to install this or instead of that while prosody developers didn't accepted "dataforms" changes you should replace standard prosody "dataforms.lua" located in ubuntu in /usr/lib/prosody/util by another one from this repository. You should do the same thing with "mod_register.lua" located in ubuntu in /usr/lib/prosody/modules.
+You can run script "install.lua" to install this. Also you might want to do it manually. Then you need to replace standard prosody "dataforms.lua", which is usually located in "/usr/lib/prosody/util" by another one from this repository. You should do the same thing with "mod_register.lua" located in "/usr/lib/prosody/modules".
 
-After this all you can try to register on your server and see the captcha.
+After this all you can try to register on the your server and see the captcha.

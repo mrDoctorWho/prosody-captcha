@@ -245,8 +245,8 @@ module:hook("stanza/iq/jabber:iq:register:query", function(event)
 			-- TODO: Move this in standalone function
 			local challenge = get_captcha()
 			local captcha_data = get_file(config.dir.."/"..challenge..".jpg")
-			local captcha_sha = sha1(captcha_data, true) -- omg
-			local captcha_base64 = base64(captcha_data) -- lol wut
+			local captcha_sha = sha1(captcha_data, true)
+			local captcha_base64 = base64(captcha_data)
 			xml = registration_form:form(({FORM_TYPE = "urn:xmpp:captcha",
 				from = session.host,
 				ocr = {{ 
@@ -254,7 +254,7 @@ module:hook("stanza/iq/jabber:iq:register:query", function(event)
 					uri = string.format("cid:sha1+%s@bob.xmpp.org", captcha_sha) 
 				}};
 				url = string.format("http://%s:5280/%s/%s", session.host, config.web_path, challenge);
-				captcha_text = "If you can't see an image, follow link below";
+				captcha_text = "If you can't see an image, follow the link below";
 				challenge = challenge;
 				sid = "1";
 			}));
