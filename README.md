@@ -3,7 +3,7 @@ prosody-captcha
 
 **Introduction**
 
-Prosody-captcha is a little modification for standard prosody's module "mod_register.lua" that provides captcha protection for registration form.
+Prosody-captcha is a little modification for standard prosody's module *mod_register* that provides captcha protection for registration form.
 
 **Installation**
 
@@ -11,24 +11,38 @@ First of all you should build and install lua bindings for libgd — [lua-gd](ht
 
 Then clone repsository lua-captcha:
 
-```git clone https://github.com/mrDoctorWho/lua-captcha```
+```bash
+git clone https://github.com/mrDoctorWho/lua-captcha
+```
 
 install it:
 
-```make install```
+```bash
+make install
+```
 
-After that you have to configure prosody. This module requires from you 5 fields, you must add this into your VirtualHost entry.
+
+There are two ways to install the module in your prosody:
+
+**Automatically**:
+To install the module automatically, run the script named *install.lua* (Works only if prosody is placed in */usr/lib/*).
+
+**Manually**:
+
+Modules and libraries are usually located in */usr/lib/prosody/modules*.
+
+You need to replace the standard prosody library called *dataforms.lua* and the module *mod_register.lua* by the ones from this repository.
+
+Then prosody should be configured. This module requires 5 fields that must be added into VirtualHost entry:
 
 ```lua
 captcha_config = {
-		dir = "/tmp"; -- Directory used to storage captcha images. Please make sure prosody user allowed to write there.
-		timeout = 60; -- Timeout when captcha will expire
-		web_path = "challenge"; -- Web path used to separate main prosody site from itself modules.
+		dir = "/tmp"; -- Directory used to store the images. Please make sure the prosody user is allowed to write there.
+		timeout = 60; -- Timeout of the captcha expiration
+		web_path = "challenge"; -- Web path used to separate main prosody site from modules.
 		font = "/usr/lib/prosody/FiraSans-Regular.ttf"; -- Font used for the captcha text
 		quality = 60; -- The captcha quality percentage
-	}
+}
 ```
 
-You can run script "install.lua" to install this. Also you might want to do it manually. Then you need to replace standard prosody "dataforms.lua", which is usually located in "/usr/lib/prosody/util" by another one from this repository. You should do the same thing with "mod_register.lua" located in "/usr/lib/prosody/modules".
-
-After this all you can try to register on the your server and see the captcha.
+Prosody captcha is ready!
